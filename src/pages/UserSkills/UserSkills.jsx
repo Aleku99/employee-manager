@@ -7,34 +7,14 @@ import AccountBoxIcon from "@mui/icons-material/AccountBox";
 import ConstructionIcon from "@mui/icons-material/Construction";
 import Chip from "@mui/material/Chip";
 import Button from "@mui/material/Button";
+import Modal from "../../components/Modal/Modal";
+import SkillsForm from "../../components/SkillsForm/SkillsForm";
+import SkillsList from "../../components/SkillsList/SkillsList";
 
 const UserSkills = ({ name, surname, grade, department, mainTechnology }) => {
-  const [skillsList, setSkillsList] = useState([
-    "HTML",
-    "CSS",
-    "JavaScript",
-    "React",
-    "NodeJS",
-    "ExpressJS",
-    "mySQL",
-    "MongoDB",
-  ]);
-  const handleClick = () => {};
-  const handleDelete = (skill) => () => {
-    setSkillsList((prevState) => {
-      return prevState.filter((prevSkill) => prevSkill !== skill);
-    });
-  };
-  const skills = skillsList.map((skill, index) => (
-    <Chip
-      key={index}
-      clickable
-      onDelete={handleDelete(skill)}
-      onClick={handleClick}
-      size="large"
-      label={skill}
-    />
-  ));
+  const [modalType, setmodalType] = useState("");
+  const [openModal, setOpenModal] = useState(false);
+
   return (
     <Container maxWidth="xl" sx={{ marginTop: "2rem" }}>
       <Card sx={{ margin: "1rem", border: "solid 1px lightgrey" }}>
@@ -111,16 +91,27 @@ const UserSkills = ({ name, surname, grade, department, mainTechnology }) => {
               Skills
             </div>
           </Typography>
-          {skills}
+          <SkillsList />
           <Button
             variant="contained"
             size="small"
+            onClick={() => {
+              setmodalType("ADD");
+              setOpenModal(true);
+            }}
             sx={{ display: "block", marginTop: "1rem" }}
           >
             Add skill
           </Button>
         </CardContent>
       </Card>
+      <Modal
+        title={modalType === "EDIT" ? "Edit skill" : "Add skill"}
+        openModal={openModal}
+        setOpenModal={setOpenModal}
+      >
+        <SkillsForm recordForEdit={null} addOrEdit={() => {}} />
+      </Modal>
     </Container>
   );
 };
