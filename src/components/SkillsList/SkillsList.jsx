@@ -4,6 +4,7 @@ import ListItem from "@mui/material/ListItem";
 import ListItemText from "@mui/material/ListItemText";
 import IconButton from "@mui/material/IconButton";
 import DeleteIcon from "@mui/icons-material/Delete";
+import EditIcon from "@mui/icons-material/Edit";
 const style = {
   width: "100%",
   maxWidth: 360,
@@ -27,9 +28,14 @@ const SkillsList = () => {
       <ListItem
         divider
         secondaryAction={
-          <IconButton edge="end" aria-label="delete">
-            <DeleteIcon />
-          </IconButton>
+          <>
+            <IconButton edge="end" aria-label="delete">
+              <EditIcon />
+            </IconButton>
+            <IconButton edge="end" aria-label="delete">
+              <DeleteIcon />
+            </IconButton>
+          </>
         }
       >
         <ListItemText
@@ -40,9 +46,14 @@ const SkillsList = () => {
       <ListItem
         divider
         secondaryAction={
-          <IconButton edge="end" aria-label="delete">
-            <DeleteIcon />
-          </IconButton>
+          <>
+            <IconButton edge="end" aria-label="delete">
+              <EditIcon />
+            </IconButton>
+            <IconButton edge="end" aria-label="delete">
+              <DeleteIcon />
+            </IconButton>
+          </>
         }
       >
         <ListItemText
@@ -53,9 +64,14 @@ const SkillsList = () => {
       <ListItem
         divider
         secondaryAction={
-          <IconButton edge="end" aria-label="delete">
-            <DeleteIcon />
-          </IconButton>
+          <>
+            <IconButton edge="end" aria-label="delete">
+              <EditIcon />
+            </IconButton>
+            <IconButton edge="end" aria-label="delete">
+              <DeleteIcon />
+            </IconButton>
+          </>
         }
       >
         <ListItemText
@@ -66,9 +82,14 @@ const SkillsList = () => {
       <ListItem
         divider
         secondaryAction={
-          <IconButton edge="end" aria-label="delete">
-            <DeleteIcon />
-          </IconButton>
+          <>
+            <IconButton edge="end" aria-label="delete">
+              <EditIcon />
+            </IconButton>
+            <IconButton edge="end" aria-label="delete">
+              <DeleteIcon />
+            </IconButton>
+          </>
         }
       >
         <ListItemText
