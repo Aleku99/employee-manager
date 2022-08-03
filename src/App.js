@@ -1,3 +1,5 @@
+import React from "react";
+
 import "./App.css";
 
 import NavBar from "./components/NavBar/NavBar";
@@ -6,10 +8,12 @@ import UserList from "./pages/UserList/UserList";
 import MainFooter from "./components/MainFooter/MainFooter";
 
 function App() {
+  const [searchInput, setSearchInput] = React.useState("");
+
   return (
     <>
-      <NavBar />
-      <UserSkills />
+      <NavBar onInputChange={setSearchInput} />
+      <UserList filterSearch={searchInput} />
       <MainFooter title="Your Endava Employees Manager" />
     </>
   );

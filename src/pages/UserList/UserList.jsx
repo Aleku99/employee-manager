@@ -22,56 +22,56 @@ const cards = [
     mainTech: "ReactJS",
   },
   {
-    name: "Adrian",
+    name: "Alex",
     surname: "brisan",
     grade: "junior",
     department: "frontend development",
     mainTech: "ReactJS",
   },
   {
-    name: "Adrian",
+    name: "Marian",
     surname: "brisan",
     grade: "junior",
     department: "frontend development",
     mainTech: "ReactJS",
   },
   {
-    name: "Adrian",
+    name: "Andrei",
     surname: "brisan",
     grade: "junior",
     department: "frontend development",
     mainTech: "ReactJS",
   },
   {
-    name: "Adrian",
+    name: "Andreea",
     surname: "brisan",
     grade: "junior",
     department: "frontend development",
     mainTech: "ReactJS",
   },
   {
-    name: "Adrian",
+    name: "Bianca",
     surname: "brisan",
     grade: "junior",
     department: "frontend development",
     mainTech: "ReactJS",
   },
   {
-    name: "Adrian",
+    name: "Bujor",
     surname: "brisan",
     grade: "junior",
     department: "frontend development",
     mainTech: "ReactJS",
   },
   {
-    name: "Adrian",
+    name: "Mercedesa",
     surname: "brisan",
     grade: "junior",
     department: "frontend development",
     mainTech: "ReactJS",
   },
   {
-    name: "Adrian",
+    name: "Pyush",
     surname: "brisan",
     grade: "junior",
     department: "frontend development",
@@ -81,7 +81,8 @@ const cards = [
 
 const theme = createTheme();
 
-const UserList = () => {
+const UserList = ({ filterSearch }) => {
+  const [employeeList, setEmployeeList] = React.useState(cards);
   const [openModal, setOpenModal] = React.useState(false);
 
   return (
@@ -113,19 +114,25 @@ const UserList = () => {
             onClick={() => setOpenModal(true)}
           />
           <Grid container spacing={4}>
-            {cards.map((employee, index) => (
-              <Grid item key={index} xs={12} sm={6} md={4}>
-                <Card
-                  sx={{
-                    height: "100%",
-                    display: "flex",
-                    flexDirection: "column",
-                  }}
-                >
-                  <CardItem employee={employee} />
-                </Card>
-              </Grid>
-            ))}
+            {employeeList
+              .filter((employee) =>
+                `${employee.name.toLowerCase()} ${employee.surname.toLowerCase()}`.includes(
+                  filterSearch.toLowerCase()
+                )
+              )
+              .map((employee, index) => (
+                <Grid item key={index} xs={12} sm={6} md={4}>
+                  <Card
+                    sx={{
+                      height: "100%",
+                      display: "flex",
+                      flexDirection: "column",
+                    }}
+                  >
+                    <CardItem employee={employee} />
+                  </Card>
+                </Grid>
+              ))}
           </Grid>
         </Container>
       </main>
@@ -134,7 +141,7 @@ const UserList = () => {
         openModal={openModal}
         setOpenModal={setOpenModal}
       >
-        <EmployeeForm recordForEdit={undefined} addOrEdit={undefined} />
+        <EmployeeForm type="addEmployee" addOrEdit={() => {}} />
       </Modal>
     </ThemeProvider>
   );

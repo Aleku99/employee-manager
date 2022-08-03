@@ -13,6 +13,13 @@ const CardItem = ({ employee }) => {
 
   const [openModal, setOpenModal] = React.useState(false);
 
+  const editEmployee = (employee, resetForm) => {
+    //TODO: update employee here
+    console.log(employee);
+    resetForm();
+    setOpenModal(false);
+  };
+
   return (
     <>
       <CardContent sm={{ flexGrow: 1 }}>
@@ -40,7 +47,7 @@ const CardItem = ({ employee }) => {
         openModal={openModal}
         setOpenModal={setOpenModal}
       >
-        <EmployeeForm recordForEdit={undefined} addOrEdit={undefined} />
+        <EmployeeForm recordForEdit={employee} addOrEdit={editEmployee} />
       </Modal>
     </>
   );
