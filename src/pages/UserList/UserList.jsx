@@ -3,7 +3,6 @@ import * as React from "react";
 import Button from "../../components/Button/Button";
 import CardItem from "../../components/CardItem/CardItem";
 import EmployeeForm from "../../components/EmployeeForm/EmployeeForm";
-import MainFooter from "../../components/MainFooter/MainFooter";
 import Modal from "../../components/Modal/Modal";
 
 import Card from "@mui/material/Card";
@@ -137,7 +136,6 @@ const UserList = () => {
       >
         <EmployeeForm recordForEdit={undefined} addOrEdit={undefined} />
       </Modal>
-      <MainFooter title="Your Endava Employees Manager" />
     </ThemeProvider>
   );
 };
