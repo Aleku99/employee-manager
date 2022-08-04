@@ -10,7 +10,7 @@ function App() {
   return (
     <>
       <NavBar />
-      <UserSkills />
+      <ReportScreen />
       <MainFooter title="Your Endava Employees Manager" />
     </>
   );
