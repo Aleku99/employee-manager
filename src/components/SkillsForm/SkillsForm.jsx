@@ -8,9 +8,8 @@ import { useStyles } from "./SkillsForm.style";
 
 import { useForm } from "../../hooks/useForm-hook";
 
-const initialFValues = {
+let initialFValues = {
   skill: "",
-  rating: "",
 };
 
 function Form(props) {
@@ -24,7 +23,7 @@ function Form(props) {
 }
 
 export default function SkillsForm(props) {
-  const { addOrEdit, recordForEdit } = props;
+  const { addOrEdit, recordForEdit, skillToEdit, userId, updateSkill } = props;
 
   const validate = (fieldValues = values) => {
     let temp = { ...errors };
@@ -34,14 +33,30 @@ export default function SkillsForm(props) {
     }
     if ("rating" in fieldValues) {
       temp.rating = fieldValues.rating ? "" : "Rating is required.";
+    } else if ("value" in fieldValues) {
+      console.log(fieldValues.value);
+      temp.value =
+        fieldValues.value === "true" || fieldValues.value === "false"
+          ? ""
+          : "Value is required (true/false)";
     }
     setErrors({
       ...temp,
     });
-
-    if (fieldValues === values)
+    if (fieldValues === values) {
       return Object.values(temp).every((x) => x === "");
+    }
   };
+  const setInitialFValues = (skillToEdit, initialFValues) => {
+    if ("rating" in skillToEdit) {
+      initialFValues.rating = "";
+    } else {
+      initialFValues.value = "";
+    }
+    return initialFValues;
+  };
+
+  initialFValues = setInitialFValues(skillToEdit, initialFValues);
 
   const { values, setValues, errors, setErrors, handleInputChange, resetForm } =
     useForm(initialFValues, true, validate);
@@ -49,7 +64,10 @@ export default function SkillsForm(props) {
   const handleSubmit = (e) => {
     e.preventDefault();
     if (validate()) {
-      addOrEdit(values, resetForm);
+      console.log(skillToEdit);
+      const formInput1 = values.skill;
+      const formInput2 = "rating" in skillToEdit ? values.rating : values.value;
+      updateSkill(skillToEdit, userId, formInput1, formInput2);
     }
   };
 
@@ -73,11 +91,13 @@ export default function SkillsForm(props) {
             error={errors.skill}
           />
           <Input
-            name="rating"
-            label="Rating"
-            value={values.rating}
+            name={"rating" in skillToEdit ? "rating" : "value"}
+            label={"rating" in skillToEdit ? "Rating" : "Value"}
+            value={"rating" in skillToEdit ? values.rating : values.value}
             onChange={handleInputChange}
-            error={errors.rating}
+            error={"rating" in skillToEdit ? errors.rating : errors.value}
+            type={"rating" in skillToEdit ? "number" : "text"}
+            inputProps={{ min: 0, max: 5 }}
           />
         </Grid>
         <Grid item xs={6}>

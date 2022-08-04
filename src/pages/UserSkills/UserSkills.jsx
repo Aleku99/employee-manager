@@ -12,10 +12,24 @@ import SkillsForm from "../../components/SkillsForm/SkillsForm";
 import SkillsList from "../../components/SkillsList/SkillsList";
 import useSkills from "../../hooks/useSkills";
 
-const UserSkills = ({ name, surname, grade, department, mainTechnology }) => {
+const UserSkills = ({
+  userId,
+  name,
+  surname,
+  grade,
+  department,
+  mainTechnology,
+}) => {
   const [modalType, setmodalType] = useState("");
   const [openModal, setOpenModal] = useState(false);
-  const [skillsList, setSkillsList, skillToEdit, setSkillToEdit] = useSkills();
+  const [
+    skillsList,
+    setSkillsList,
+    skillToEdit,
+    setSkillToEdit,
+    updateSkill,
+    deleteSkill,
+  ] = useSkills();
   return (
     <Container maxWidth="xl" sx={{ marginTop: "2rem" }}>
       <Card sx={{ margin: "1rem", border: "solid 1px lightgrey" }}>
@@ -98,6 +112,7 @@ const UserSkills = ({ name, surname, grade, department, mainTechnology }) => {
             setSkillToEdit={setSkillToEdit}
             skillsList={skillsList}
             setSkillsList={setSkillsList}
+            deleteSkill={deleteSkill}
           />
           <Button
             variant="contained"
@@ -121,6 +136,8 @@ const UserSkills = ({ name, surname, grade, department, mainTechnology }) => {
           recordForEdit={null}
           addOrEdit={() => {}}
           skillToEdit={skillToEdit}
+          userId={userId}
+          updateSkill={updateSkill}
         />
       </Modal>
     </Container>

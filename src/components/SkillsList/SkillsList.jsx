@@ -5,8 +5,7 @@ import ListItemText from "@mui/material/ListItemText";
 import IconButton from "@mui/material/IconButton";
 import DeleteIcon from "@mui/icons-material/Delete";
 import EditIcon from "@mui/icons-material/Edit";
-import { useHttpClient } from "../../hooks/http-hook";
-import { SKILLS_MOCK } from "../../mocks/skillsMock";
+
 const style = {
   width: "100%",
   maxWidth: 360,
@@ -19,25 +18,33 @@ const SkillsList = ({
   setSkillToEdit,
   skillsList,
   setSkillsList,
+  deleteSkill,
 }) => {
   const handleSkillDelete = (skill) => () => {
-    console.log("Delete " + skill);
-
-    //MAKE request to backend to set technology name to "none", update state inside app
+    deleteSkill(skill);
+  };
+  const handleSkillEdit = (skill) => () => {
+    setmodalType("EDIT");
     Object.keys(skillsList).forEach(function (key) {
-      console.log(key);
       if (skillsList[key].technologyName === skill) {
-        setSkillsList((prevState) => {
-          return { ...prevState, [key]: { technologyName: "none", rating: 0 } };
-        });
+        let newSkill = {
+          technologyName: skill,
+        };
+        if (key === "mainTechnology") {
+          newSkill.isMain = true;
+          newSkill.rating = 0;
+        } else if (key === "secondaryTechnology") {
+          newSkill.isMain = false;
+          newSkill.rating = 0;
+        } else if (key === "cloudKnowledge") {
+          newSkill.rating = 0;
+        } else if (key === "linuxKnowledge") {
+          newSkill.value = false;
+        }
+        setSkillToEdit(newSkill);
+        setOpenModal(true);
       }
     });
-  };
-  const handleSkillEdit = (skill) => async () => {
-    //const response = await sendRequest("http://localhost:8080/user?userId=0");
-    //CAN'T make request from localhost because of CORS
-    setmodalType("EDIT");
-    setOpenModal(true);
   };
 
   return (
