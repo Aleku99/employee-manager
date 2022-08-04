@@ -13,11 +13,16 @@ const style = {
   bgcolor: "background.paper",
 };
 const NONE = "none";
-const SkillsList = () => {
-  const { isLoading, error, sendRequest, clearError } = useHttpClient();
-  const [skillsList, setSkillsList] = useState(SKILLS_MOCK); //need to make a request for this to back-end
+const SkillsList = ({
+  setOpenModal,
+  setmodalType,
+  setSkillToEdit,
+  skillsList,
+  setSkillsList,
+}) => {
   const handleSkillDelete = (skill) => () => {
     console.log("Delete " + skill);
+
     //MAKE request to backend to set technology name to "none", update state inside app
     Object.keys(skillsList).forEach(function (key) {
       console.log(key);
@@ -31,6 +36,8 @@ const SkillsList = () => {
   const handleSkillEdit = (skill) => async () => {
     //const response = await sendRequest("http://localhost:8080/user?userId=0");
     //CAN'T make request from localhost because of CORS
+    setmodalType("EDIT");
+    setOpenModal(true);
   };
 
   return (

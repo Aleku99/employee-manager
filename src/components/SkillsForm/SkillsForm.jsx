@@ -10,6 +10,7 @@ import { useForm } from "../../hooks/useForm-hook";
 
 const initialFValues = {
   skill: "",
+  rating: "",
 };
 
 function Form(props) {
@@ -31,6 +32,9 @@ export default function SkillsForm(props) {
     if ("skill" in fieldValues) {
       temp.skill = fieldValues.skill ? "" : "Skill is required.";
     }
+    if ("rating" in fieldValues) {
+      temp.rating = fieldValues.rating ? "" : "Rating is required.";
+    }
     setErrors({
       ...temp,
     });
@@ -49,13 +53,13 @@ export default function SkillsForm(props) {
     }
   };
 
-  // useEffect(() => {
-  //   if (recordForEdit !== null)
-  //     setValues({
-  //       ...recordForEdit,
-  //     });
-  //   // eslint-disable-next-line react-hooks/exhaustive-deps
-  // }, [recordForEdit]);
+  useEffect(() => {
+    if (recordForEdit !== null)
+      setValues({
+        ...recordForEdit,
+      });
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [recordForEdit]);
 
   return (
     <Form onSubmit={handleSubmit}>
@@ -67,6 +71,13 @@ export default function SkillsForm(props) {
             value={values.skill}
             onChange={handleInputChange}
             error={errors.skill}
+          />
+          <Input
+            name="rating"
+            label="Rating"
+            value={values.rating}
+            onChange={handleInputChange}
+            error={errors.rating}
           />
         </Grid>
         <Grid item xs={6}>
