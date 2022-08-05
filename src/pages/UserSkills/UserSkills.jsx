@@ -9,6 +9,7 @@ import Chip from "@mui/material/Chip";
 import Button from "@mui/material/Button";
 import Modal from "../../components/Modal/Modal";
 import SkillsForm from "../../components/SkillsForm/SkillsForm";
+import AddSkillForm from "../../components/AddSkillForm/AddSkillForm";
 import SkillsList from "../../components/SkillsList/SkillsList";
 import useSkills from "../../hooks/useSkills";
 import { useEffect } from "react";
@@ -137,15 +138,27 @@ const UserSkills = ({
         openModal={openModal}
         setOpenModal={setOpenModal}
       >
-        <SkillsForm
-          recordForEdit={null}
-          addOrEdit={() => {}}
-          skillToEdit={skillToEdit}
-          userId={userId}
-          updateSkill={updateSkill}
-          setOpenModal={setOpenModal}
-          fetchSkills={fetchSkills}
-        />
+        {modalType === "EDIT" ? (
+          <SkillsForm
+            recordForEdit={null}
+            addOrEdit={() => {}}
+            skillToEdit={skillToEdit}
+            userId={userId}
+            updateSkill={updateSkill}
+            setOpenModal={setOpenModal}
+            fetchSkills={fetchSkills}
+          />
+        ) : (
+          <AddSkillForm
+            recordForEdit={null}
+            addOrEdit={() => {}}
+            skillToEdit={skillToEdit}
+            userId={userId}
+            updateSkill={updateSkill}
+            setOpenModal={setOpenModal}
+            fetchSkills={fetchSkills}
+          />
+        )}
       </Modal>
     </Container>
   );
