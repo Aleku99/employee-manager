@@ -12,7 +12,7 @@ import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
 import Container from "@mui/material/Container";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
-import { Fragment } from "react";
+import Links from "../../components/Links/Links";
 
 const cards = [
   {
@@ -82,21 +82,26 @@ const cards = [
 
 const theme = createTheme();
 
-const UserList = ({ filterSearch }) => {
+const UserList = ({ filterSearch, handleUserSkill }) => {
   const [employeeList, setEmployeeList] = React.useState(cards);
   const [openModal, setOpenModal] = React.useState(false);
 
   return (
-    <Fragment>
-      <ThemeProvider theme={theme}>
-        <CssBaseline />
-        <main>
-          <Box
-            sx={{
-              bgcolor: "background.paper",
-              pt: 8,
-              pb: 6,
-            }}
+    <ThemeProvider theme={theme}>
+      <CssBaseline />
+      <main>
+        <Box
+          sx={{
+            bgcolor: "background.paper",
+            pt: 8,
+            pb: 6,
+          }}
+        >
+          <Typography
+            component="h1"
+            variant="h2"
+            align="center"
+            color="text.primary"
           >
             Employees manager
           </Typography>
@@ -125,7 +130,10 @@ const UserList = ({ filterSearch }) => {
                       flexDirection: "column",
                     }}
                   >
-                    <CardItem employee={employee} />
+                    <CardItem
+                      employee={employee}
+                      handleUserSkill={handleUserSkill}
+                    />
                   </Card>
                 </Grid>
               ))}

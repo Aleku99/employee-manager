@@ -11,14 +11,31 @@ import { BrowserRouter, Route, Routes } from "react-router-dom";
 
 function App() {
   const [searchInput, setSearchInput] = React.useState("");
+  const [currentUser, setCurrentUser] = React.useState({});
+
+  const handleUserSkills = (employee) => {
+    setCurrentUser(employee);
+  };
 
   return (
     <>
       <BrowserRouter>
-        <NavBar />
+        <NavBar onInputChange={setSearchInput} />
         <Routes>
-          <Route exact path="/" element={<UserList />} />
-          <Route path="/user-skills" element={<UserSkills />} />
+          <Route
+            exact
+            path="/"
+            element={
+              <UserList
+                filterSearch={searchInput}
+                handleUserSkill={handleUserSkills}
+              />
+            }
+          />
+          <Route
+            path="/user-skills"
+            element={<UserSkills currentUser={currentUser} />}
+          />
           <Route path="/reports" element={<ReportScreen />} />
         </Routes>
         <MainFooter title="Your Endava Employees Manager" />

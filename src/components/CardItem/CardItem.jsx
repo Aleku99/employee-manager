@@ -7,11 +7,14 @@ import Typography from "@mui/material/Typography";
 
 import Modal from "../Modal/Modal";
 import EmployeeForm from "../EmployeeForm/EmployeeForm";
+import { Navigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
-const CardItem = ({ employee }) => {
+const CardItem = ({ employee, handleUserSkill }) => {
   const { name, surname, grade, department, mainTech } = employee;
 
   const [openModal, setOpenModal] = React.useState(false);
+  let navigate = useNavigate();
 
   const editEmployee = (employee, resetForm) => {
     //TODO: update employee here
@@ -40,6 +43,15 @@ const CardItem = ({ employee }) => {
           }}
         >
           Edit
+        </Button>
+        <Button
+          size="small"
+          onClick={() => {
+            handleUserSkill(employee);
+            navigate("/user-skills", { replace: true });
+          }}
+        >
+          Open Skills
         </Button>
       </CardActions>
       <Modal

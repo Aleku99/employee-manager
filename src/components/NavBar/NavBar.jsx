@@ -61,8 +61,8 @@ export default function NavBar({ onInputChange }) {
     <Box sx={{ flexGrow: 1 }}>
       <AppBar position="static">
         <Toolbar>
-          <Links flexG={0} link={"/"} text={"Home"} />
-          <Links flexG={0} link={"/user-skills"} text={"Users"} />
+          <Links flexG={0} link={"/"} text={"Users"} />
+          {/* <Links flexG={0} link={"/user-skills"} text={"Users"} /> */}
           <Links flexG={1} link={"/reports"} text={"Reports"} />
           <Search>
             <SearchIconWrapper>
