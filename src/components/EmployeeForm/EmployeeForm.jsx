@@ -31,6 +31,7 @@ export default function EmployeeForm(props) {
 
   const validate = (fieldValues = values) => {
     let temp = { ...errors };
+
     if ("name" in fieldValues)
       temp.name = fieldValues.name ? "" : "Name is required.";
     if ("surname" in fieldValues)
@@ -52,7 +53,31 @@ export default function EmployeeForm(props) {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    if (validate()) {
+    let error = {
+      name: "",
+      surname: "",
+      grade: "",
+      department: "",
+    };
+
+    const isValid = validate();
+    if (props.type === "addEmployee") {
+      if (values.name === undefined || values.name === "") {
+        error.name = "Name is required.";
+      }
+      if (values.surname === undefined || values.surname === "") {
+        error.surname = "Surname is required.";
+      }
+      if (values.grade === undefined || values.grade === "") {
+        error.grade = "Grade is required.";
+      }
+      if (values.department === undefined || values.department === "") {
+        error.department = "Department is required.";
+      }
+      setErrors({ ...error });
+    }
+
+    if (!!isValid) {
       addOrEdit(values, resetForm);
     }
   };

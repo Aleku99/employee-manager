@@ -18,6 +18,7 @@ export default function Modal(props) {
   return (
     <Dialog
       open={openModal}
+      onClose={() => setOpenModal(false)}
       maxWidth="md"
       classes={{ paper: classes.dialogWrapper }}
     >
