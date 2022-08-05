@@ -23,56 +23,56 @@ const cards = [
     mainTech: "ReactJS",
   },
   {
-    name: "Adrian",
+    name: "Alex",
     surname: "brisan",
     grade: "junior",
     department: "frontend development",
     mainTech: "ReactJS",
   },
   {
-    name: "Adrian",
+    name: "Marian",
     surname: "brisan",
     grade: "junior",
     department: "frontend development",
     mainTech: "ReactJS",
   },
   {
-    name: "Adrian",
+    name: "Andrei",
     surname: "brisan",
     grade: "junior",
     department: "frontend development",
     mainTech: "ReactJS",
   },
   {
-    name: "Adrian",
+    name: "Andreea",
     surname: "brisan",
     grade: "junior",
     department: "frontend development",
     mainTech: "ReactJS",
   },
   {
-    name: "Adrian",
+    name: "Bianca",
     surname: "brisan",
     grade: "junior",
     department: "frontend development",
     mainTech: "ReactJS",
   },
   {
-    name: "Adrian",
+    name: "Bujor",
     surname: "brisan",
     grade: "junior",
     department: "frontend development",
     mainTech: "ReactJS",
   },
   {
-    name: "Adrian",
+    name: "Mercedesa",
     surname: "brisan",
     grade: "junior",
     department: "frontend development",
     mainTech: "ReactJS",
   },
   {
-    name: "Adrian",
+    name: "Pyush",
     surname: "brisan",
     grade: "junior",
     department: "frontend development",
@@ -82,7 +82,8 @@ const cards = [
 
 const theme = createTheme();
 
-const UserList = () => {
+const UserList = ({ filterSearch }) => {
+  const [employeeList, setEmployeeList] = React.useState(cards);
   const [openModal, setOpenModal] = React.useState(false);
 
   return (
@@ -97,25 +98,25 @@ const UserList = () => {
               pb: 6,
             }}
           >
-            <Typography
-              component="h1"
-              variant="h2"
-              align="center"
-              color="text.primary"
-            >
-              Employees manager
-            </Typography>
-          </Box>
-          <Container sx={{ py: 8 }} maxWidth="md">
-            <Button
-              style={{ marginBottom: "4rem" }}
-              disableElevation
-              type="submit"
-              text="Add Employee Profile"
-              onClick={() => setOpenModal(true)}
-            />
-            <Grid container spacing={4}>
-              {cards.map((employee, index) => (
+            Employees manager
+          </Typography>
+        </Box>
+        <Container sx={{ py: 8 }} maxWidth="md">
+          <Button
+            style={{ marginBottom: "4rem" }}
+            disableElevation
+            type="submit"
+            text="Add Employee Profile"
+            onClick={() => setOpenModal(true)}
+          />
+          <Grid container spacing={4}>
+            {employeeList
+              .filter((employee) =>
+                `${employee.name.toLowerCase()} ${employee.surname.toLowerCase()}`.includes(
+                  filterSearch.toLowerCase()
+                )
+              )
+              .map((employee, index) => (
                 <Grid item key={index} xs={12} sm={6} md={4}>
                   <Card
                     sx={{
@@ -128,18 +129,17 @@ const UserList = () => {
                   </Card>
                 </Grid>
               ))}
-            </Grid>
-          </Container>
-        </main>
-        <Modal
-          title="Add Employee Profile"
-          openModal={openModal}
-          setOpenModal={setOpenModal}
-        >
-          <EmployeeForm recordForEdit={undefined} addOrEdit={undefined} />
-        </Modal>
-      </ThemeProvider>
-    </Fragment>
+          </Grid>
+        </Container>
+      </main>
+      <Modal
+        title="Add Employee Profile"
+        openModal={openModal}
+        setOpenModal={setOpenModal}
+      >
+        <EmployeeForm type="addEmployee" addOrEdit={() => {}} />
+      </Modal>
+    </ThemeProvider>
   );
 };
 

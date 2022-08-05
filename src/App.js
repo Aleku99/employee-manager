@@ -1,3 +1,5 @@
+import React from "react";
+
 import "./App.css";
 
 import NavBar from "./components/NavBar/NavBar";
@@ -8,6 +10,8 @@ import MainFooter from "./components/MainFooter/MainFooter";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 
 function App() {
+  const [searchInput, setSearchInput] = React.useState("");
+
   return (
     <>
       <BrowserRouter>
