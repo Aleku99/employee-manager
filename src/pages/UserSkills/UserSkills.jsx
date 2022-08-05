@@ -116,7 +116,7 @@ const UserSkills = ({
             setmodalType={setmodalType}
             setSkillToEdit={setSkillToEdit}
             skillsList={skillsList}
-            setSkillsList={setSkillsList}
+            fetchSkills={fetchSkills}
             deleteSkill={deleteSkill}
           />
           <Button

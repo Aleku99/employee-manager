@@ -22,7 +22,7 @@ const useSkills = () => {
       try {
         const response = await fetch(
           `http://localhost:8080/skill/technology?userId=${updatedSkill.userId}&technologyName=${updatedSkill.technologyName}&rating=${updatedSkill.rating}&isMain=${updatedSkill.isMain}`,
-          { method: "POST" }
+          { method: "PUT" }
         );
       } catch (e) {
         alert("User skill update was not successfull");
@@ -32,7 +32,7 @@ const useSkills = () => {
       try {
         const response = await fetch(
           `http://localhost:8080/skill/linux?userId=${updatedSkill.userId}&technologyName=${updatedSkill.technologyName}&value=${updatedSkill.value}`,
-          { method: "POST" }
+          { method: "PUT" }
         );
       } catch (e) {
         alert("User skill update was not successfull");
@@ -42,7 +42,7 @@ const useSkills = () => {
       try {
         const response = await fetch(
           `http://localhost:8080/skill/cloud?userId=${updatedSkill.userId}&technologyName=${updatedSkill.technologyName}&rating=${updatedSkill.rating}`,
-          { method: "POST" }
+          { method: "PUT" }
         );
       } catch (e) {
         alert("User skill update was not successfull");
@@ -50,14 +50,65 @@ const useSkills = () => {
       }
     }
   };
-  const deleteSkill = (skill) => {
+  const deleteSkill = async (userId, skill) => {
     //MAKE request to backend and update state
-    Object.keys(skillsList).forEach(function (key) {
+    console.log(skill);
+    Object.keys(skillsList).forEach(async function (key) {
       if (skillsList[key] !== null)
         if (skillsList[key].technologyName === skill) {
-          setSkillsList((prevState) => {
-            return { ...prevState, [key]: null };
-          });
+          console.log(key);
+          console.log(skillsList[key]);
+          switch (key) {
+            case "mainTechnology": {
+              try {
+                await fetch(
+                  `http://localhost:8080/skill/technology?userId=${userId}&isMain=true`,
+                  { method: "PUT" }
+                );
+              } catch (e) {
+                alert("SKill was not deleted succesfully");
+              }
+              break;
+            }
+            case "secondaryTechnology": {
+              try {
+                await fetch(
+                  `http://localhost:8080/skill/technology?userId=${userId}&isMain=false`,
+                  { method: "PUT" }
+                );
+              } catch (e) {
+                alert("Skill was not deleted succesfully");
+              }
+              break;
+            }
+            case "linuxKnowledge": {
+              try {
+                await fetch(
+                  `http://localhost:8080/skill/linux?userId=${userId}`,
+                  {
+                    method: "PUT",
+                  }
+                );
+              } catch (e) {
+                alert("Skill was not deleted succesfully");
+              }
+              break;
+            }
+            case "cloudKnowledge": {
+              try {
+                await fetch(
+                  `http://localhost:8080/skill/cloud?userId=${userId}`,
+                  {
+                    method: "PUT",
+                  }
+                );
+              } catch (e) {
+                alert("Skill was not deleted succesfully");
+              }
+              break;
+            }
+            default:
+          }
         }
     });
   };

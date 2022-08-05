@@ -16,11 +16,12 @@ const SkillsList = ({
   setmodalType,
   setSkillToEdit,
   skillsList,
-  setSkillsList,
+  fetchSkills,
   deleteSkill,
 }) => {
   const handleSkillDelete = (skill) => () => {
-    deleteSkill(skill);
+    deleteSkill(0, skill);
+    fetchSkills(0);
   };
   const handleSkillEdit = (skill) => () => {
     setmodalType("EDIT");
@@ -47,9 +48,11 @@ const SkillsList = ({
     });
   };
 
+  console.log(skillsList.linuxKnowledge.technologyName);
   return (
     <List sx={style} component="nav" aria-label="mailbox folders">
-      {skillsList.mainTechnology !== null ? (
+      {skillsList.mainTechnology !== null &&
+      skillsList.mainTechnology.technologyName !== null ? (
         <ListItem
           divider
           secondaryAction={
@@ -84,7 +87,8 @@ const SkillsList = ({
         <></>
       )}
 
-      {skillsList.secondaryTechnology !== null ? (
+      {skillsList.secondaryTechnology !== null &&
+      skillsList.secondaryTechnology.technologyName !== null ? (
         <ListItem
           divider
           secondaryAction={
@@ -118,7 +122,8 @@ const SkillsList = ({
       ) : (
         <></>
       )}
-      {skillsList.cloudKnowledge !== null ? (
+      {skillsList.cloudKnowledge !== null &&
+      skillsList.cloudKnowledge.technologyName !== null ? (
         <ListItem
           divider
           secondaryAction={
@@ -152,7 +157,8 @@ const SkillsList = ({
       ) : (
         <></>
       )}
-      {skillsList.linuxKnowledge !== null ? (
+      {skillsList.linuxKnowledge !== null &&
+      skillsList.linuxKnowledge.technologyName !== null ? (
         <ListItem
           divider
           secondaryAction={
