@@ -4,8 +4,8 @@ const useSkills = () => {
   const [skillsList, setSkillsList] = useState(SKILLS_MOCK);
   const [skillToEdit, setSkillToEdit] = useState({});
 
-  const updateSkill = (skill, userId, formInput1, formInput2) => {
-    let updatedSkill = { ...skill, userId: userId };
+  const updateSkill = async (skill, userId, formInput1, formInput2) => {
+    let updatedSkill = { ...skill, userId: 0 };
 
     if ("rating" in skill) {
       //mainTechnology, secondaryTechnology or cloudKnowledge
@@ -18,17 +18,59 @@ const useSkills = () => {
     }
     console.log(updatedSkill);
     //MAKE request to backend and update state
+    if ("isMain" in updatedSkill) {
+      try {
+        const response = await fetch(
+          `http://localhost:8080/skill/technology?userId=${updatedSkill.userId}&technologyName=${updatedSkill.technologyName}&rating=${updatedSkill.rating}&isMain=${updatedSkill.isMain}`,
+          { method: "POST" }
+        );
+      } catch (e) {
+        alert("User skill update was not successfull");
+        console.log(e);
+      }
+    } else if ("value" in updatedSkill) {
+      try {
+        const response = await fetch(
+          `http://localhost:8080/skill/linux?userId=${updatedSkill.userId}&technologyName=${updatedSkill.technologyName}&value=${updatedSkill.value}`,
+          { method: "POST" }
+        );
+      } catch (e) {
+        alert("User skill update was not successfull");
+        console.log(e);
+      }
+    } else {
+      try {
+        const response = await fetch(
+          `http://localhost:8080/skill/cloud?userId=${updatedSkill.userId}&technologyName=${updatedSkill.technologyName}&rating=${updatedSkill.rating}`,
+          { method: "POST" }
+        );
+      } catch (e) {
+        alert("User skill update was not successfull");
+        console.log(e);
+      }
+    }
   };
   const deleteSkill = (skill) => {
     //MAKE request to backend and update state
     Object.keys(skillsList).forEach(function (key) {
-      console.log(key);
-      if (skillsList[key].technologyName === skill) {
-        setSkillsList((prevState) => {
-          return { ...prevState, [key]: { technologyName: "none", rating: 0 } };
-        });
-      }
+      if (skillsList[key] !== null)
+        if (skillsList[key].technologyName === skill) {
+          setSkillsList((prevState) => {
+            return { ...prevState, [key]: null };
+          });
+        }
     });
+  };
+  const fetchSkills = async (userId) => {
+    const response = await fetch(`http://localhost:8080/user?userId=${userId}`);
+    const user = await response.json();
+    const skills = {
+      mainTechnology: user.mainTechnology,
+      secondaryTechnology: user.secondaryTechnology,
+      cloudKnowledge: user.cloudKnowledge,
+      linuxKnowledge: user.linuxKnowledge,
+    };
+    setSkillsList(skills);
   };
 
   return [
@@ -38,6 +80,7 @@ const useSkills = () => {
     setSkillToEdit,
     updateSkill,
     deleteSkill,
+    fetchSkills,
   ];
 };
 

@@ -11,7 +11,6 @@ const style = {
   maxWidth: 360,
   bgcolor: "background.paper",
 };
-const NONE = "none";
 const SkillsList = ({
   setOpenModal,
   setmodalType,
@@ -26,30 +25,31 @@ const SkillsList = ({
   const handleSkillEdit = (skill) => () => {
     setmodalType("EDIT");
     Object.keys(skillsList).forEach(function (key) {
-      if (skillsList[key].technologyName === skill) {
-        let newSkill = {
-          technologyName: skill,
-        };
-        if (key === "mainTechnology") {
-          newSkill.isMain = true;
-          newSkill.rating = 0;
-        } else if (key === "secondaryTechnology") {
-          newSkill.isMain = false;
-          newSkill.rating = 0;
-        } else if (key === "cloudKnowledge") {
-          newSkill.rating = 0;
-        } else if (key === "linuxKnowledge") {
-          newSkill.value = false;
+      if (skillsList[key] !== null)
+        if (skillsList[key].technologyName === skill) {
+          let newSkill = {
+            technologyName: skill,
+          };
+          if (key === "mainTechnology") {
+            newSkill.isMain = true;
+            newSkill.rating = 0;
+          } else if (key === "secondaryTechnology") {
+            newSkill.isMain = false;
+            newSkill.rating = 0;
+          } else if (key === "cloudKnowledge") {
+            newSkill.rating = 0;
+          } else if (key === "linuxKnowledge") {
+            newSkill.value = false;
+          }
+          setSkillToEdit(newSkill);
+          setOpenModal(true);
         }
-        setSkillToEdit(newSkill);
-        setOpenModal(true);
-      }
     });
   };
 
   return (
     <List sx={style} component="nav" aria-label="mailbox folders">
-      {skillsList.mainTechnology.technologyName.toLowerCase() !== NONE ? (
+      {skillsList.mainTechnology !== null ? (
         <ListItem
           divider
           secondaryAction={
@@ -84,7 +84,7 @@ const SkillsList = ({
         <></>
       )}
 
-      {skillsList.secondaryTechnology.technologyName.toLowerCase() !== NONE ? (
+      {skillsList.secondaryTechnology !== null ? (
         <ListItem
           divider
           secondaryAction={
@@ -118,7 +118,7 @@ const SkillsList = ({
       ) : (
         <></>
       )}
-      {skillsList.cloudKnowledge.technologyName.toLowerCase() !== NONE ? (
+      {skillsList.cloudKnowledge !== null ? (
         <ListItem
           divider
           secondaryAction={
@@ -152,7 +152,7 @@ const SkillsList = ({
       ) : (
         <></>
       )}
-      {skillsList.linuxKnowledge.technologyName.toLowerCase() !== NONE ? (
+      {skillsList.linuxKnowledge !== null ? (
         <ListItem
           divider
           secondaryAction={

@@ -11,6 +11,7 @@ import Modal from "../../components/Modal/Modal";
 import SkillsForm from "../../components/SkillsForm/SkillsForm";
 import SkillsList from "../../components/SkillsList/SkillsList";
 import useSkills from "../../hooks/useSkills";
+import { useEffect } from "react";
 
 const UserSkills = ({
   userId,
@@ -29,7 +30,11 @@ const UserSkills = ({
     setSkillToEdit,
     updateSkill,
     deleteSkill,
+    fetchSkills,
   ] = useSkills();
+  useEffect(() => {
+    fetchSkills(0);
+  }, []);
   return (
     <Container maxWidth="xl" sx={{ marginTop: "2rem" }}>
       <Card sx={{ margin: "1rem", border: "solid 1px lightgrey" }}>
@@ -138,6 +143,8 @@ const UserSkills = ({
           skillToEdit={skillToEdit}
           userId={userId}
           updateSkill={updateSkill}
+          setOpenModal={setOpenModal}
+          fetchSkills={fetchSkills}
         />
       </Modal>
     </Container>

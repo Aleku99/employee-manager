@@ -23,7 +23,15 @@ function Form(props) {
 }
 
 export default function SkillsForm(props) {
-  const { addOrEdit, recordForEdit, skillToEdit, userId, updateSkill } = props;
+  const {
+    addOrEdit,
+    recordForEdit,
+    skillToEdit,
+    userId,
+    updateSkill,
+    setOpenModal,
+    fetchSkills,
+  } = props;
 
   const validate = (fieldValues = values) => {
     let temp = { ...errors };
@@ -34,7 +42,6 @@ export default function SkillsForm(props) {
     if ("rating" in fieldValues) {
       temp.rating = fieldValues.rating ? "" : "Rating is required.";
     } else if ("value" in fieldValues) {
-      console.log(fieldValues.value);
       temp.value =
         fieldValues.value === "true" || fieldValues.value === "false"
           ? ""
@@ -64,10 +71,11 @@ export default function SkillsForm(props) {
   const handleSubmit = (e) => {
     e.preventDefault();
     if (validate()) {
-      console.log(skillToEdit);
       const formInput1 = values.skill;
       const formInput2 = "rating" in skillToEdit ? values.rating : values.value;
       updateSkill(skillToEdit, userId, formInput1, formInput2);
+      setOpenModal(false);
+      fetchSkills(0);
     }
   };
 
