@@ -12,6 +12,7 @@ import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
 import Container from "@mui/material/Container";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
+import { Fragment } from "react";
 
 const cards = [
   {
@@ -86,21 +87,16 @@ const UserList = ({ filterSearch }) => {
   const [openModal, setOpenModal] = React.useState(false);
 
   return (
-    <ThemeProvider theme={theme}>
-      <CssBaseline />
-      <main>
-        <Box
-          sx={{
-            bgcolor: "background.paper",
-            pt: 8,
-            pb: 6,
-          }}
-        >
-          <Typography
-            component="h1"
-            variant="h2"
-            align="center"
-            color="text.primary"
+    <Fragment>
+      <ThemeProvider theme={theme}>
+        <CssBaseline />
+        <main>
+          <Box
+            sx={{
+              bgcolor: "background.paper",
+              pt: 8,
+              pb: 6,
+            }}
           >
             Employees manager
           </Typography>

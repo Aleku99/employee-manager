@@ -3,9 +3,9 @@ import { styled, alpha } from "@mui/material/styles";
 import AppBar from "@mui/material/AppBar";
 import Box from "@mui/material/Box";
 import Toolbar from "@mui/material/Toolbar";
-import Typography from "@mui/material/Typography";
 import InputBase from "@mui/material/InputBase";
 import SearchIcon from "@mui/icons-material/Search";
+import Links from "../Links/Links";
 
 const Search = styled("div")(({ theme }) => ({
   position: "relative",
@@ -61,26 +61,9 @@ export default function NavBar({ onInputChange }) {
     <Box sx={{ flexGrow: 1 }}>
       <AppBar position="static">
         <Toolbar>
-          <Typography
-            variant="h6"
-            noWrap
-            component="div"
-            sx={{
-              flexGrow: 0,
-              display: { sm: "block" },
-              padding: "1rem",
-            }}
-          >
-            Users
-          </Typography>
-          <Typography
-            variant="h6"
-            noWrap
-            component="div"
-            sx={{ flexGrow: 1, display: { sm: "block" } }}
-          >
-            Reports
-          </Typography>
+          <Links flexG={0} link={"/"} text={"Home"} />
+          <Links flexG={0} link={"/user-skills"} text={"Users"} />
+          <Links flexG={1} link={"/reports"} text={"Reports"} />
           <Search>
             <SearchIconWrapper>
               <SearchIcon />
