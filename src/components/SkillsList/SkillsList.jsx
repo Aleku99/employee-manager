@@ -48,7 +48,6 @@ const SkillsList = ({
     });
   };
 
-  console.log(skillsList.linuxKnowledge.technologyName);
   return (
     <List sx={style} component="nav" aria-label="mailbox folders">
       {skillsList.mainTechnology !== null &&

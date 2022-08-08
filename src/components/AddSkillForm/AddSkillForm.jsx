@@ -7,12 +7,10 @@ import Input from "../Input/Input";
 import { Grid } from "@material-ui/core";
 
 import { useForm } from "../../hooks/useForm-hook";
-import InputLabel from "@mui/material/InputLabel";
-import Select from "@mui/material/Select";
-import MenuItem from "@mui/material/MenuItem";
 
 let initialFValues = {
   skill: "",
+  type: "",
 };
 
 function Form(props) {
@@ -34,11 +32,21 @@ export default function AddSkillForm(props) {
     updateSkill,
     setOpenModal,
     fetchSkills,
+    addSkill,
   } = props;
 
   const validate = (fieldValues = values) => {
     let temp = { ...errors };
-
+    console.log(fieldValues);
+    if ("type" in fieldValues) {
+      temp.type =
+        fieldValues.type.toLowerCase() === "main" ||
+        fieldValues.type.toLowerCase() === "secondary" ||
+        fieldValues.type.toLowerCase() === "linux" ||
+        fieldValues.type.toLowerCase() === "cloud"
+          ? ""
+          : "Skill type must be main/secondary/cloud/linux";
+    }
     if ("skill" in fieldValues) {
       temp.skill = fieldValues.skill ? "" : "Skill is required.";
     }
@@ -57,16 +65,6 @@ export default function AddSkillForm(props) {
       return Object.values(temp).every((x) => x === "");
     }
   };
-  const setInitialFValues = (skillToEdit, initialFValues) => {
-    if ("rating" in skillToEdit) {
-      initialFValues.rating = "";
-    } else {
-      initialFValues.value = "";
-    }
-    return initialFValues;
-  };
-
-  initialFValues = setInitialFValues(skillToEdit, initialFValues);
 
   const { values, setValues, errors, setErrors, handleInputChange, resetForm } =
     useForm(initialFValues, true, validate);
@@ -74,9 +72,11 @@ export default function AddSkillForm(props) {
   const handleSubmit = (e) => {
     e.preventDefault();
     if (validate()) {
-      const formInput1 = values.skill;
-      const formInput2 = "rating" in skillToEdit ? values.rating : values.value;
-      updateSkill(skillToEdit, userId, formInput1, formInput2);
+      const formInput1 = values.type.toLowerCase();
+      const formInput2 = values.skill;
+      const formInput3 =
+        values.type.toLowerCase() === "linux" ? values.value : values.rating;
+      addSkill(0, formInput1, formInput2, formInput3);
       setOpenModal(false);
       fetchSkills(0);
     }
@@ -94,17 +94,13 @@ export default function AddSkillForm(props) {
     <Form onSubmit={handleSubmit}>
       <Grid container>
         <Grid item xs={6}>
-          <Select
-            labelId="skill-type"
-            id="skill"
-            // value={age}
-            label="Age"
-            // onChange={handleChange}
-          >
-            <MenuItem value={10}>Ten</MenuItem>
-            <MenuItem value={20}>Twenty</MenuItem>
-            <MenuItem value={30}>Thirty</MenuItem>
-          </Select>
+          <Input
+            name="type"
+            label="Type"
+            value={values.type}
+            onChange={handleInputChange}
+            error={errors.type}
+          />
           <Input
             name="skill"
             label="Skill"
@@ -113,12 +109,20 @@ export default function AddSkillForm(props) {
             error={errors.skill}
           />
           <Input
-            name={"rating" in skillToEdit ? "rating" : "value"}
-            label={"rating" in skillToEdit ? "Rating" : "Value"}
-            value={"rating" in skillToEdit ? values.rating : values.value}
+            name={values.type.toLowerCase() === "linux" ? "value" : "rating"}
+            label={values.type.toLowerCase() === "linux" ? "Value" : "Rating"}
+            value={
+              values.type.toLowerCase() === "linux"
+                ? values.value
+                : values.rating
+            }
             onChange={handleInputChange}
-            error={"rating" in skillToEdit ? errors.rating : errors.value}
-            type={"rating" in skillToEdit ? "number" : "text"}
+            error={
+              values.type.toLowerCase() === "linux"
+                ? errors.value
+                : errors.rating
+            }
+            type={values.type.toLowerCase() === "linux" ? "text" : "number"}
             inputProps={{ min: 0, max: 5 }}
           />
         </Grid>

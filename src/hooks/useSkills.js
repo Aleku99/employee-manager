@@ -113,15 +113,80 @@ const useSkills = () => {
     });
   };
   const fetchSkills = async (userId) => {
-    const response = await fetch(`http://localhost:8080/user?userId=${userId}`);
-    const user = await response.json();
-    const skills = {
-      mainTechnology: user.mainTechnology,
-      secondaryTechnology: user.secondaryTechnology,
-      cloudKnowledge: user.cloudKnowledge,
-      linuxKnowledge: user.linuxKnowledge,
-    };
-    setSkillsList(skills);
+    try {
+      const response = await fetch(
+        `http://localhost:8080/user?userId=${userId}`
+      );
+      const user = await response.json();
+      const skills = {
+        mainTechnology: user.mainTechnology,
+        secondaryTechnology: user.secondaryTechnology,
+        cloudKnowledge: user.cloudKnowledge,
+        linuxKnowledge: user.linuxKnowledge,
+      };
+      setSkillsList(skills);
+    } catch (e) {
+      console.log(e);
+      alert("Skills were not fetched successfully");
+    }
+  };
+
+  const addSkill = (userId, type, skill, value) => {
+    switch (type) {
+      case "main":
+        try {
+          fetch(
+            `http://localhost:8080/skill/technology?userId=${userId}&technologyName=${skill}&rating=${value}&isMain=true`,
+            {
+              method: "POST",
+            }
+          );
+        } catch (e) {
+          console.log(e);
+          alert("Skill was not added successfully");
+        }
+        break;
+      case "secondary":
+        try {
+          fetch(
+            `http://localhost:8080/skill/technology?userId=${userId}&technologyName=${skill}&rating=${value}&isMain=false`,
+            {
+              method: "POST",
+            }
+          );
+        } catch (e) {
+          console.log(e);
+          alert("Skill was not added successfully");
+        }
+        break;
+      case "cloud":
+        try {
+          fetch(
+            `http://localhost:8080/skill/cloud?userId=${userId}&technologyName=${skill}&rating=${value}`,
+            {
+              method: "POST",
+            }
+          );
+        } catch (e) {
+          console.log(e);
+          alert("Skill was not added successfully");
+        }
+        break;
+      case "linux":
+        try {
+          fetch(
+            `http://localhost:8080/skill/linux?userId=${userId}&technologyName=${skill}&value=${value}`,
+            {
+              method: "POST",
+            }
+          );
+        } catch (e) {
+          console.log(e);
+          alert("Skill was not added successfully");
+        }
+        break;
+      default:
+    }
   };
 
   return [
@@ -132,6 +197,7 @@ const useSkills = () => {
     updateSkill,
     deleteSkill,
     fetchSkills,
+    addSkill,
   ];
 };
 

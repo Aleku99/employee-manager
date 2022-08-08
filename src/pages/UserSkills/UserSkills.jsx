@@ -32,6 +32,7 @@ const UserSkills = ({
     updateSkill,
     deleteSkill,
     fetchSkills,
+    addSkill,
   ] = useSkills();
   useEffect(() => {
     fetchSkills(0);
@@ -157,6 +158,7 @@ const UserSkills = ({
             updateSkill={updateSkill}
             setOpenModal={setOpenModal}
             fetchSkills={fetchSkills}
+            addSkill={addSkill}
           />
         )}
       </Modal>
