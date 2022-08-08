@@ -1,4 +1,5 @@
 import React, { useEffect } from "react";
+import { v4 as uuidv4 } from "uuid";
 
 import Button from "../Button/Button";
 import Input from "../Input/Input";
@@ -7,13 +8,13 @@ import { Grid } from "@material-ui/core";
 import { useStyles } from "./EmployeeForm.style";
 
 import { useForm } from "../../hooks/useForm-hook";
+import { useHttpClient } from "../../hooks/http-hook";
 
 const initialFValues = {
   name: "",
   surname: "",
   grade: "",
   department: "",
-  mainTech: "",
 };
 
 function Form(props) {
@@ -28,6 +29,8 @@ function Form(props) {
 
 export default function EmployeeForm(props) {
   const { addOrEdit, recordForEdit } = props;
+
+  const { isLoading, error, sendRequest, clearError } = useHttpClient();
 
   const validate = (fieldValues = values) => {
     let temp = { ...errors };
@@ -51,8 +54,27 @@ export default function EmployeeForm(props) {
   const { values, setValues, errors, setErrors, handleInputChange, resetForm } =
     useForm(initialFValues, true, validate);
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
+
+    const { name, surname, grade, department } = values;
+
+    try {
+      await sendRequest(
+        "http://localhost:8080/user",
+        "POST",
+        JSON.stringify({
+          userId: uuidv4(),
+          name,
+          surname,
+          grade,
+          department,
+        }),
+        {
+          "Content-Type": "application/json",
+        }
+      );
+    } catch (err) {}
 
     if (validate()) {
       addOrEdit(values, resetForm);

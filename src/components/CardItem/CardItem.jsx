@@ -11,7 +11,7 @@ import { Navigate } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 
 const CardItem = ({ employee, handleUserSkill }) => {
-  const { name, surname, grade, department, mainTech } = employee;
+  const { name, surname, grade, department, mainTechnology } = employee;
 
   const [openModal, setOpenModal] = React.useState(false);
   let navigate = useNavigate();
@@ -33,7 +33,6 @@ const CardItem = ({ employee, handleUserSkill }) => {
           Grade: {grade}
         </Typography>
         <Typography>Department: {department}</Typography>
-        <Typography>Department: {mainTech}</Typography>
       </CardContent>
       <CardActions>
         <Button
