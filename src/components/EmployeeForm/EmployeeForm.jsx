@@ -53,40 +53,20 @@ export default function EmployeeForm(props) {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    let error = {
-      name: "",
-      surname: "",
-      grade: "",
-      department: "",
-    };
 
-    const isValid = validate();
-    if (props.type === "addEmployee") {
-      if (values.name === undefined || values.name === "") {
-        error.name = "Name is required.";
-      }
-      if (values.surname === undefined || values.surname === "") {
-        error.surname = "Surname is required.";
-      }
-      if (values.grade === undefined || values.grade === "") {
-        error.grade = "Grade is required.";
-      }
-      if (values.department === undefined || values.department === "") {
-        error.department = "Department is required.";
-      }
-      setErrors({ ...error });
-    }
-
-    if (!!isValid) {
+    if (validate()) {
       addOrEdit(values, resetForm);
     }
   };
 
   useEffect(() => {
-    if (recordForEdit !== null)
+    if (recordForEdit !== undefined) {
       setValues({
         ...recordForEdit,
       });
+    } else {
+      setValues({ ...initialFValues });
+    }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [recordForEdit]);
 
@@ -126,7 +106,7 @@ export default function EmployeeForm(props) {
         <Grid item xs={6}>
           <div>
             <Button type="submit" text="Submit" />
-            <Button text="Reset" color="default" onClick={resetForm} />
+            <Button text="Reset" color="primary" onClick={resetForm} />
           </div>
         </Grid>
       </Grid>
