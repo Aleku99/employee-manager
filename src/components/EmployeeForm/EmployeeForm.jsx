@@ -28,7 +28,7 @@ function Form(props) {
 }
 
 export default function EmployeeForm(props) {
-  const { addOrEdit, recordForEdit } = props;
+  const { addOrEdit, recordForEdit, isEditable } = props;
 
   const { isLoading, error, sendRequest, clearError } = useHttpClient();
 
@@ -58,12 +58,17 @@ export default function EmployeeForm(props) {
     e.preventDefault();
 
     const { name, surname, grade, department } = values;
-    const uid = uuidv4();
-    console.log(uid);
+    let uid;
+    if (isEditable) {
+      uid = uuidv4();
+    }
+
     try {
       await sendRequest(
-        `http://localhost:8080/user?userId=${uid}&name=${name}&surname=${surname}&grade=${grade}&department=${department}`,
-        "POST"
+        `http://localhost:8080/user?userId=${
+          !!uid ? uid : recordForEdit.userId
+        }&name=${name}&surname=${surname}&grade=${grade}&department=${department}`,
+        `${isEditable ? "PUT" : "POST"}`
       );
     } catch (err) {}
 

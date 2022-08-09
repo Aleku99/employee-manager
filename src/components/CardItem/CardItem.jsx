@@ -7,11 +7,14 @@ import Typography from "@mui/material/Typography";
 
 import Modal from "../Modal/Modal";
 import EmployeeForm from "../EmployeeForm/EmployeeForm";
-import { Navigate } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
+
+import { useHttpClient } from "../../hooks/http-hook";
 
 const CardItem = ({ employee, handleUserSkill }) => {
   const { name, surname, grade, department, mainTechnology } = employee;
+
+  const { isLoading, error, sendRequest, clearError } = useHttpClient();
 
   const [openModal, setOpenModal] = React.useState(false);
   let navigate = useNavigate();
@@ -58,7 +61,11 @@ const CardItem = ({ employee, handleUserSkill }) => {
         openModal={openModal}
         setOpenModal={setOpenModal}
       >
-        <EmployeeForm recordForEdit={employee} addOrEdit={editEmployee} />
+        <EmployeeForm
+          isEditable
+          recordForEdit={employee}
+          addOrEdit={editEmployee}
+        />
       </Modal>
     </>
   );
