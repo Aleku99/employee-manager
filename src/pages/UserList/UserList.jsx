@@ -143,9 +143,10 @@ const UserList = ({ filterSearch, handleUserSkill }) => {
               <Grid container spacing={4}>
                 {employeeList
                   .filter((employee) =>
-                    `${employee.name?.toLowerCase()} ${employee.surname?.toLowerCase()}`.includes(
-                      filterSearch?.toLowerCase()
-                    )
+                    `${
+                      employee.mainTechnology &&
+                      employee.mainTechnology?.toLowerCase()
+                    }`.includes(filterSearch?.toLowerCase())
                   )
                   .map((employee, index) => (
                     <Grid item key={index} xs={12} sm={6} md={4}>

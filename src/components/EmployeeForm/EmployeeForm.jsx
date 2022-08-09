@@ -58,21 +58,12 @@ export default function EmployeeForm(props) {
     e.preventDefault();
 
     const { name, surname, grade, department } = values;
-
+    const uid = uuidv4();
+    console.log(uid);
     try {
       await sendRequest(
-        "http://localhost:8080/user",
-        "POST",
-        JSON.stringify({
-          userId: uuidv4(),
-          name,
-          surname,
-          grade,
-          department,
-        }),
-        {
-          "Content-Type": "application/json",
-        }
+        `http://localhost:8080/user?userId=${uid}&name=${name}&surname=${surname}&grade=${grade}&department=${department}`,
+        "POST"
       );
     } catch (err) {}
 
