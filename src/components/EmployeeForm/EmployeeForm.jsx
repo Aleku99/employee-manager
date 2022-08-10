@@ -59,7 +59,7 @@ export default function EmployeeForm(props) {
 
     const { name, surname, grade, department } = values;
     let uid;
-    if (isEditable) {
+    if (!isEditable) {
       uid = uuidv4();
     }
 
