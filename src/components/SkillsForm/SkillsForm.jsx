@@ -76,7 +76,7 @@ export default function SkillsForm(props) {
       updateSkill(skillToEdit, userId, formInput1, formInput2);
       setOpenModal(false);
       setTimeout(() => {
-        fetchSkills(0);
+        fetchSkills(userId);
       }, 100);
     }
   };

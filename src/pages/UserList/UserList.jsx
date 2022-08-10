@@ -84,7 +84,7 @@ const cards = [
 
 const theme = createTheme();
 
-const UserList = ({ filterSearch, handleUserSkill }) => {
+const UserList = ({ filterSearch }) => {
   const { isLoading, error, sendRequest, clearError } = useHttpClient();
 
   const [employeeList, setEmployeeList] = React.useState();
@@ -157,10 +157,7 @@ const UserList = ({ filterSearch, handleUserSkill }) => {
                           flexDirection: "column",
                         }}
                       >
-                        <CardItem
-                          employee={employee}
-                          handleUserSkill={handleUserSkill}
-                        />
+                        <CardItem employee={employee} />
                       </Card>
                     </Grid>
                   ))}

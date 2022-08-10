@@ -75,10 +75,10 @@ export default function AddSkillForm(props) {
       const formInput2 = values.skill;
       const formInput3 =
         values.type.toLowerCase() === "linux" ? values.value : values.rating;
-      addSkill(0, formInput1, formInput2, formInput3);
+      addSkill(userId, formInput1, formInput2, formInput3);
       setOpenModal(false);
       setTimeout(() => {
-        fetchSkills(0);
+        fetchSkills(userId);
       }, 100);
     }
   };

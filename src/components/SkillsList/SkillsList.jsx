@@ -18,12 +18,13 @@ const SkillsList = ({
   skillsList,
   fetchSkills,
   deleteSkill,
+  userId,
 }) => {
   console.log(skillsList);
   const handleSkillDelete = (skill) => () => {
-    deleteSkill(0, skill);
+    deleteSkill(userId, skill);
     setTimeout(() => {
-      fetchSkills(0);
+      fetchSkills(userId);
     }, 100);
   };
   const handleSkillEdit = (skill) => () => {
