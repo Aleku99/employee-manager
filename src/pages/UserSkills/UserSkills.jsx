@@ -110,7 +110,7 @@ const UserSkills = () => {
             {`${
               skillsList.mainTechnology === null ||
               skillsList.mainTechnology.technologyName === null
-                ? "none"
+                ? ""
                 : skillsList.mainTechnology.technologyName
             }`}
           </Typography>
