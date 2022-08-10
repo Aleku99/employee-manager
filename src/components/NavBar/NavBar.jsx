@@ -50,12 +50,6 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
 }));
 
 export default function NavBar({ onInputChange }) {
-  const [searchInput, setSearchInput] = React.useState("");
-
-  React.useEffect(() => {
-    onInputChange(searchInput);
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [searchInput]);
 
   return (
     <Box sx={{ flexGrow: 1 }}>
@@ -70,7 +64,7 @@ export default function NavBar({ onInputChange }) {
             </SearchIconWrapper>
             <StyledInputBase
               onChange={(e) => {
-                setSearchInput(e.target.value);
+                onInputChange(e.target.value);
               }}
               placeholder="Search…"
               inputProps={{ "aria-label": "search" }}

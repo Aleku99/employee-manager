@@ -1,17 +1,16 @@
-import React from "react";
+import React, {useState} from "react";
 
 import "./App.css";
 
-import NavBar from "./components/NavBar/NavBar";
 import UserSkills from "./pages/UserSkills/UserSkills";
 import UserList from "./pages/UserList/UserList";
 import ReportScreen from "./pages/ReportScreen/ReportScreen";
-import MainFooter from "./components/MainFooter/MainFooter";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
+import MainScreen from './components/Layout/MainScreen';
 
 function App() {
-  const [searchInput, setSearchInput] = React.useState("");
-  const [currentUser, setCurrentUser] = React.useState({});
+  const [searchInput, setSearchInput] = useState("");
+  const [currentUser, setCurrentUser] = useState({});
 
   const handleUserSkills = (employee) => {
     setCurrentUser(employee);
@@ -20,25 +19,24 @@ function App() {
   return (
     <>
       <BrowserRouter>
-        <NavBar onInputChange={setSearchInput} />
         <Routes>
-          <Route
-            exact
-            path="/"
-            element={
-              <UserList
-                filterSearch={searchInput}
-                handleUserSkill={handleUserSkills}
-              />
-            }
-          />
-          <Route
-            path="/user-skills"
-            element={<UserSkills currentUser={currentUser} />}
-          />
-          <Route path="/reports" element={<ReportScreen />} />
+          <Route path='/' element={<MainScreen setSearchInput={setSearchInput} />}>
+            <Route
+              index
+              element={
+                <UserList
+                  filterSearch={searchInput}
+                  handleUserSkill={handleUserSkills}
+                />
+              }
+            />
+            <Route
+              path="user-skills"
+              element={<UserSkills currentUser={currentUser} />}
+            />
+            <Route path="reports" element={<ReportScreen />} />
+          </Route>
         </Routes>
-        <MainFooter title="Your Endava Employees Manager" />
       </BrowserRouter>
     </>
   );
