@@ -16,7 +16,6 @@ const useSkills = () => {
       updatedSkill.technologyName = formInput1;
       updatedSkill.value = formInput2;
     }
-    console.log(updatedSkill);
     //MAKE request to backend and update state
     if ("isMain" in updatedSkill) {
       try {
@@ -51,13 +50,9 @@ const useSkills = () => {
     }
   };
   const deleteSkill = async (userId, skill) => {
-    //MAKE request to backend and update state
-    console.log(skill);
     Object.keys(skillsList).forEach(async function (key) {
       if (skillsList[key] !== null)
         if (skillsList[key].technologyName === skill) {
-          console.log(key);
-          console.log(skillsList[key]);
           switch (key) {
             case "mainTechnology": {
               try {
@@ -131,14 +126,14 @@ const useSkills = () => {
     }
   };
 
-  const addSkill = (userId, type, skill, value) => {
+  const addSkill = async (userId, type, skill, value) => {
     switch (type) {
       case "main":
         try {
-          fetch(
+          await fetch(
             `http://localhost:8080/skill/technology?userId=${userId}&technologyName=${skill}&rating=${value}&isMain=true`,
             {
-              method: "POST",
+              method: "PUT",
             }
           );
         } catch (e) {
@@ -148,10 +143,10 @@ const useSkills = () => {
         break;
       case "secondary":
         try {
-          fetch(
+          await fetch(
             `http://localhost:8080/skill/technology?userId=${userId}&technologyName=${skill}&rating=${value}&isMain=false`,
             {
-              method: "POST",
+              method: "PUT",
             }
           );
         } catch (e) {
@@ -161,10 +156,10 @@ const useSkills = () => {
         break;
       case "cloud":
         try {
-          fetch(
+          await fetch(
             `http://localhost:8080/skill/cloud?userId=${userId}&technologyName=${skill}&rating=${value}`,
             {
-              method: "POST",
+              method: "PUT",
             }
           );
         } catch (e) {
@@ -174,10 +169,10 @@ const useSkills = () => {
         break;
       case "linux":
         try {
-          fetch(
+          await fetch(
             `http://localhost:8080/skill/linux?userId=${userId}&technologyName=${skill}&value=${value}`,
             {
-              method: "POST",
+              method: "PUT",
             }
           );
         } catch (e) {

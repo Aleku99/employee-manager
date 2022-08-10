@@ -14,14 +14,7 @@ import SkillsList from "../../components/SkillsList/SkillsList";
 import useSkills from "../../hooks/useSkills";
 import { useEffect } from "react";
 
-const UserSkills = ({
-  userId,
-  name,
-  surname,
-  grade,
-  department,
-  mainTechnology,
-}) => {
+const UserSkills = ({ currentUser, userId }) => {
   const [modalType, setmodalType] = useState("");
   const [openModal, setOpenModal] = useState(false);
   const [
@@ -34,6 +27,7 @@ const UserSkills = ({
     fetchSkills,
     addSkill,
   ] = useSkills();
+
   useEffect(() => {
     fetchSkills(0);
   }, []);
@@ -65,7 +59,7 @@ const UserSkills = ({
             component="div"
             sx={{ color: "#1976d2" }}
           >
-            Full name: {`${name} ${surname}`}
+            Full name: {`${currentUser.name} ${currentUser.surname}`}
           </Typography>
           <Typography
             gutterBottom
@@ -73,7 +67,7 @@ const UserSkills = ({
             component="div"
             sx={{ color: "#1976d2" }}
           >
-            Grade: {`${grade}`}
+            Grade: {`${currentUser.grade}`}
           </Typography>
           <Typography
             gutterBottom
@@ -81,7 +75,7 @@ const UserSkills = ({
             component="div"
             sx={{ color: "#1976d2" }}
           >
-            Department: {`${department}`}
+            Department: {`${currentUser.department}`}
           </Typography>
           <Typography
             gutterBottom
@@ -89,7 +83,13 @@ const UserSkills = ({
             component="div"
             sx={{ color: "#1976d2" }}
           >
-            Main technology: {`${mainTechnology}`}
+            Main technology:{" "}
+            {`${
+              skillsList.mainTechnology === null ||
+              skillsList.mainTechnology.technologyName === null
+                ? "none"
+                : skillsList.mainTechnology.technologyName
+            }`}
           </Typography>
         </CardContent>
       </Card>
