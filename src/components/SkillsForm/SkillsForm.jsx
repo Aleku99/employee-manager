@@ -75,7 +75,9 @@ export default function SkillsForm(props) {
       const formInput2 = "rating" in skillToEdit ? values.rating : values.value;
       updateSkill(skillToEdit, userId, formInput1, formInput2);
       setOpenModal(false);
-      fetchSkills(0);
+      setTimeout(() => {
+        fetchSkills(0);
+      }, 100);
     }
   };
 

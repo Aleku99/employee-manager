@@ -37,7 +37,6 @@ export default function AddSkillForm(props) {
 
   const validate = (fieldValues = values) => {
     let temp = { ...errors };
-    console.log(fieldValues);
     if ("type" in fieldValues) {
       temp.type =
         fieldValues.type.toLowerCase() === "main" ||
@@ -78,7 +77,9 @@ export default function AddSkillForm(props) {
         values.type.toLowerCase() === "linux" ? values.value : values.rating;
       addSkill(0, formInput1, formInput2, formInput3);
       setOpenModal(false);
-      fetchSkills(0);
+      setTimeout(() => {
+        fetchSkills(0);
+      }, 100);
     }
   };
 

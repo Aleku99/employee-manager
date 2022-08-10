@@ -19,9 +19,12 @@ const SkillsList = ({
   fetchSkills,
   deleteSkill,
 }) => {
+  console.log(skillsList);
   const handleSkillDelete = (skill) => () => {
     deleteSkill(0, skill);
-    fetchSkills(0);
+    setTimeout(() => {
+      fetchSkills(0);
+    }, 100);
   };
   const handleSkillEdit = (skill) => () => {
     setmodalType("EDIT");
