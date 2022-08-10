@@ -25,17 +25,9 @@ function App() {
           <Route
             exact
             path="/"
-            element={
-              <UserList
-                filterSearch={searchInput}
-                handleUserSkill={handleUserSkills}
-              />
-            }
+            element={<UserList filterSearch={searchInput} />}
           />
-          <Route
-            path="/user-skills"
-            element={<UserSkills currentUser={currentUser} />}
-          />
+          <Route path="/user-skills/:userId" element={<UserSkills />} />
           <Route path="/reports" element={<ReportScreen />} />
         </Routes>
         <MainFooter title="Your Endava Employees Manager" />

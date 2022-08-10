@@ -13,8 +13,9 @@ import AddSkillForm from "../../components/AddSkillForm/AddSkillForm";
 import SkillsList from "../../components/SkillsList/SkillsList";
 import useSkills from "../../hooks/useSkills";
 import { useEffect } from "react";
+import { Routes, Route, useParams } from "react-router-dom";
 
-const UserSkills = ({ currentUser, userId }) => {
+const UserSkills = () => {
   const [modalType, setmodalType] = useState("");
   const [openModal, setOpenModal] = useState(false);
   const [
@@ -27,9 +28,31 @@ const UserSkills = ({ currentUser, userId }) => {
     fetchSkills,
     addSkill,
   ] = useSkills();
+  const { userId } = useParams();
+  const [currentUser, setCurrentUser] = useState({
+    name: "",
+    surname: "",
+    grade: "",
+    department: "",
+  });
+
+  const fetchUser = async (userId) => {
+    try {
+      const response = await fetch(
+        `http://localhost:8080/user?userId=${userId}`
+      );
+      const user = await response.json();
+      console.log(user);
+      setCurrentUser(user);
+    } catch (e) {
+      console.log(e);
+      alert("User details were not fetched succesfully");
+    }
+  };
 
   useEffect(() => {
-    fetchSkills(0);
+    fetchUser(userId);
+    fetchSkills(userId);
   }, []);
   return (
     <Container maxWidth="xl" sx={{ marginTop: "2rem" }}>
@@ -87,7 +110,7 @@ const UserSkills = ({ currentUser, userId }) => {
             {`${
               skillsList.mainTechnology === null ||
               skillsList.mainTechnology.technologyName === null
-                ? "none"
+                ? ""
                 : skillsList.mainTechnology.technologyName
             }`}
           </Typography>
@@ -120,6 +143,7 @@ const UserSkills = ({ currentUser, userId }) => {
             skillsList={skillsList}
             fetchSkills={fetchSkills}
             deleteSkill={deleteSkill}
+            userId={userId}
           />
           <Button
             variant="contained"

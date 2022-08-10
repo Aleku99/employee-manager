@@ -11,7 +11,7 @@ import { useNavigate } from "react-router-dom";
 
 import { useHttpClient } from "../../hooks/http-hook";
 
-const CardItem = ({ employee, handleUserSkill }) => {
+const CardItem = ({ employee }) => {
   const { name, surname, grade, department, mainTechnology } = employee;
 
   const { isLoading, error, sendRequest, clearError } = useHttpClient();
@@ -49,8 +49,7 @@ const CardItem = ({ employee, handleUserSkill }) => {
         <Button
           size="small"
           onClick={() => {
-            handleUserSkill(employee);
-            navigate("/user-skills", { replace: true });
+            navigate(`/user-skills/${employee.userId}`, { replace: true });
           }}
         >
           Open Skills

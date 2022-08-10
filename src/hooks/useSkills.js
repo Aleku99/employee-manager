@@ -5,7 +5,7 @@ const useSkills = () => {
   const [skillToEdit, setSkillToEdit] = useState({});
 
   const updateSkill = async (skill, userId, formInput1, formInput2) => {
-    let updatedSkill = { ...skill, userId: 0 };
+    let updatedSkill = { ...skill };
 
     if ("rating" in skill) {
       //mainTechnology, secondaryTechnology or cloudKnowledge
@@ -20,7 +20,7 @@ const useSkills = () => {
     if ("isMain" in updatedSkill) {
       try {
         const response = await fetch(
-          `http://localhost:8080/skill/technology?userId=${updatedSkill.userId}&technologyName=${updatedSkill.technologyName}&rating=${updatedSkill.rating}&isMain=${updatedSkill.isMain}`,
+          `http://localhost:8080/skill/technology?userId=${userId}&technologyName=${updatedSkill.technologyName}&rating=${updatedSkill.rating}&isMain=${updatedSkill.isMain}`,
           { method: "PUT" }
         );
       } catch (e) {
@@ -30,7 +30,7 @@ const useSkills = () => {
     } else if ("value" in updatedSkill) {
       try {
         const response = await fetch(
-          `http://localhost:8080/skill/linux?userId=${updatedSkill.userId}&technologyName=${updatedSkill.technologyName}&value=${updatedSkill.value}`,
+          `http://localhost:8080/skill/linux?userId=${userId}&technologyName=${updatedSkill.technologyName}&value=${updatedSkill.value}`,
           { method: "PUT" }
         );
       } catch (e) {
@@ -40,7 +40,7 @@ const useSkills = () => {
     } else {
       try {
         const response = await fetch(
-          `http://localhost:8080/skill/cloud?userId=${updatedSkill.userId}&technologyName=${updatedSkill.technologyName}&rating=${updatedSkill.rating}`,
+          `http://localhost:8080/skill/cloud?userId=${userId}&technologyName=${updatedSkill.technologyName}&rating=${updatedSkill.rating}`,
           { method: "PUT" }
         );
       } catch (e) {
