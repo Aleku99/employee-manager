@@ -50,6 +50,7 @@ const useSkills = () => {
       }
     }
   };
+
   const deleteSkill = async (userId, skill) => {
     //MAKE request to backend and update state
     console.log(skill);
@@ -112,6 +113,7 @@ const useSkills = () => {
         }
     });
   };
+
   const fetchSkills = async (userId) => {
     const response = await fetch(`http://localhost:8080/user?userId=${userId}`);
     const user = await response.json();
